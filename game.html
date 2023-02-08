@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rock, Paper, Scissors Game</title>
+    <style>
+	#game {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+button {
+  background-color: lightgray;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#result {
+  padding: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+	</style>
+  </head>
+  <body>
+    <h1>Rock, Paper, Scissors Game</h1>
+    <div id="game">
+      <button id="rock">Rock</button>
+      <button id="paper">Paper</button>
+      <button id="scissors">Scissors</button>
+    </div>
+    <div id="result"></div>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+  <script>
+  const buttons = document.querySelectorAll('button');
+const result = document.querySelector('#result');
+
+buttons.forEach(button => {
+  button.addEventListener('click', playGame);
+});
+
+function playGame(e) {
+  const playerSelection = e.target.id;
+  const computerSelection = getComputerSelection();
+  const winner = getWinner(playerSelection, computerSelection);
+  displayResult(winner, computerSelection);
+}
+
+function getComputerSelection() {
+  const choices = ['rock', 'paper', 'scissors'];
+  const randomIndex = Math.floor(Math.random() * 3);
+  return choices[randomIndex];
+}
+
+function getWinner(player, computer) {
+  if (player === computer) {
+    return 'tie';
+  } else if (
+    (player === 'rock' && computer === 'scissors') ||
+    (player === 'paper' && computer === 'rock') ||
+    (player === 'scissors' && computer === 'paper')
+  ) {
+    return 'player';
+  } else {
+    return 'computer';
+  }
+}
+
+function displayResult(winner, computerSelection) {
+  if (winner === 'tie') {
+    result.textContent = `It's a tie! You both chose ${computerSelection}.`;
+  } else if (winner === 'player') {
+    result.textContent = `You win! ${computerSelection} beats ${computerSelection}.`;
+  } else {
+    result.textContent = `You lose! ${computerSelection} beats ${computerSelection}.`;
+  }
+}
+
+  
+  </script>
+</html>
+
